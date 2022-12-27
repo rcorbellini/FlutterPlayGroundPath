@@ -1,6 +1,3 @@
-https://id.opf.dev.cloud.itau.com.br/testmobilepjredirectfase3 
- https://id.opf.hom.cloud.itau.com.br/opbconsentimento/mobilepj
-
 # FlutterPlaygroundPath
 
 Projeto destinado para pratica do Path.
