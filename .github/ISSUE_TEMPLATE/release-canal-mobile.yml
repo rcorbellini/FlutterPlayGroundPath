@@ -1,0 +1,73 @@
+name: Release Mobile
+description: Informe uma release mobile
+title: "[Release][Mobile]: "
+labels: ["release", "canal"]
+assignees:
+  - rcjsuff
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: date
+    attributes:
+      label: Data da release
+      description: formato dd/MM/YYYY :
+      placeholder: ex. 29/03/2023
+    validations:
+      required: true
+  - type: dropdown
+    id: plataform
+    attributes:
+      label: Qual a plataforma?
+      multiple: false
+      options:
+        - IOS
+        - Android
+    validations:
+      required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: em qual versão será aplicado a gmud?
+      options:
+        - 5.124.0
+        - 5.125.0
+        - 5.126.0
+        - 5.127.0
+        - 5.128.0
+        - 5.129.0
+        - 5.130.0
+    validations:
+      required: true
+  - type: dropdown
+    id: flow
+    attributes:
+      label: Qual a jornada?
+      description: Selecione uma ou mais jornada que será afetada com essa GMUD.
+      multiple: true
+      options:
+        - Iniciacao - Iniciador (Estratégica)
+        - Iniciacao - Detentor (Regulatória)
+        - Central OPF - Iniciador (Estratégica) 
+        - Central OPF - Detentor (Regulatória)
+    validations:
+      required: true
+  - type: textarea
+    id: hystory
+    attributes:
+      label: Histórias presentes:
+      description: Coloque os IDs (separado por virgula) das historias,bugs presente na release.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: warning
+    attributes:
+      label: Observação:
+      description: Algum risco existente? alguma observação a ser informado na versão.
+      render: shell      
+    validations:
+      required: false
