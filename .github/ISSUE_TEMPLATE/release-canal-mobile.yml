@@ -1,7 +1,7 @@
 name: Release Mobile
 description: Informe uma release mobile
 title: "[Release][Mobile]: "
-labels: ["release", "canal"]
+labels: ["release", "canal", "mobile"]
 assignees:
   - rcjsuff
 body:
