@@ -1,6 +1,6 @@
 ### Data da release
 
-qweqe
+21/05/1988
 
 ### Qual a plataforma?
 
@@ -12,7 +12,7 @@ IOS
 
 ### Qual a jornada?
 
-Iniciacao - Detentor (Regulatória), Central OPF - Detentor (Regulatória)
+Iniciacao - Iniciador (Estratégica), Iniciacao - Detentor (Regulatória)
 
 ### Histórias presentes
 
