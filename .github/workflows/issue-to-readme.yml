@@ -12,10 +12,14 @@ jobs:
 
     - name: Criar arquivo README
       run: |
-        plataform=$(jq --raw-output '.issue.fields | select(has("plataform")).plataforma' $GITHUB_EVENT_PATH)
-        date=$(jq --raw-output '.issue.fields | select(has("date")).plataforma' $GITHUB_EVENT_PATH)
+        plataform=$(jq --raw-output '.issue.fields | select(has("plataform")).plataform' $GITHUB_EVENT_PATH)
+        date=$(jq --raw-output '.issue.fields | select(has("date")).date' $GITHUB_EVENT_PATH)
         dateString=$(date -d "${date}" +"%Y-%m-%d")
-        echo "${{ github.event.issue.body }}" > content/pt-br/iniciacao-pagamentos-canais/_${plataform}-${dateString}.md
+        if [[ "${{ github.event.issue.labels }}" =~ "mobile" ]]; then
+          echo "${{ github.event.issue.body }}" > content/pt-br/iniciacao-pagamentos-canais/mobile/_${plataform}-${dateString}.md
+        else
+          echo "${{ github.event.issue.body }}" > content/pt-br/iniciacao-pagamentos-canais/bff/_${plataform}-${dateString}.md
+        fi
 
     - name: Configurar Git
       run: |
@@ -24,7 +28,6 @@ jobs:
 
     - name: Commit e push
       run: |
-        plataforma=$(jq --raw-output '.issue.fields | select(has("plataforma")).plataforma' $GITHUB_EVENT_PATH)
-        git add documentacao/README-${plataforma}.md
+        git add documentacao/README.md referente ao issue #${{ github.event.issue.number }}
         git commit -m "Adicionar README gerado automaticamente a partir da issue #${{ github.event.issue.number }}"
         git push
