@@ -15,11 +15,8 @@ jobs:
         plataform=$(jq --raw-output '.issue.fields | select(has("plataform")).plataform' $GITHUB_EVENT_PATH)
         date=$(jq --raw-output '.issue.fields | select(has("date")).date' $GITHUB_EVENT_PATH)
         dateString=$(date -d "${date}" +"%Y-%m-%d")
-        if [[ "${{ github.event.issue.labels }}" =~ "mobile" ]]; then
-          echo "${{ github.event.issue.body }}" > content/pt-br/iniciacao-pagamentos-canais/mobile/_${plataform}-${dateString}.md
-        else
-          echo "${{ github.event.issue.body }}" > content/pt-br/iniciacao-pagamentos-canais/bff/_${plataform}-${dateString}.md
-        fi
+        mkdir -p content/pt-br/iniciacao-pagamentos-canais/mobile
+        echo "${{ github.event.issue.body }}" > content/pt-br/iniciacao-pagamentos-canais/mobile/_${plataform}-${dateString}.md
 
     - name: Configurar Git
       run: |
