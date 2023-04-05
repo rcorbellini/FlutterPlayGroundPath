@@ -12,12 +12,12 @@ jobs:
 
     - name: Criar arquivo README
       run: |
-        plataform=$(jq --raw-output '.issue.body | match("Qual a plataforma?[^#]*#(.*)") .captures[0].string' $GITHUB_EVENT_PATH | xargs)
-        dateString=$(jq --raw-output '.issue.body | match("Data da release[^#]*#(.*)") .captures[0].string' $GITHUB_EVENT_PATH | xargs)
-        echo ${plataform}
+        plataform=$(jq --raw-output '.issue.body' "$GITHUB_EVENT_PATH" | grep -oP '(?<=Qual a plataforma\?\n\n).+' | tr -d '\r')
+        dateForm=$(jq --raw-output '.issue.body' "$GITHUB_EVENT_PATH" | grep -oP '(?<=Data da release\n\n).+' | tr -d '\r')        echo ${plataform}
         echo "1"
-        echo ${dateString}
-        echo "2"
+        echo ${plataform}
+        echo "2"        
+        echo ${dateForm}
         mkdir -p content/pt-br/iniciacao-pagamentos-canais/mobile
         echo "${{ github.event.issue.body }}" | sed 's/"/\\"/g' > content/pt-br/iniciacao-pagamentos-canais/mobile/_teste.md
     - name: Configurar Git
