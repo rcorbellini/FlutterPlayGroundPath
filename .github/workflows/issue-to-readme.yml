@@ -12,7 +12,10 @@ jobs:
 
     - name: Criar arquivo README
       run: |
-        echo "${{ github.event.issue.body }}" > README.md
+        plataform=$(jq --raw-output '.issue.fields | select(has("plataform")).plataforma' $GITHUB_EVENT_PATH)
+        date=$(jq --raw-output '.issue.fields | select(has("date")).plataforma' $GITHUB_EVENT_PATH)
+        dateString=$(date -d "${date}" +"%Y-%m-%d")
+        echo "${{ github.event.issue.body }}" > content/pt-br/iniciacao-pagamentos-canais/_${plataform}-${dateString}.md
 
     - name: Configurar Git
       run: |
@@ -21,6 +24,7 @@ jobs:
 
     - name: Commit e push
       run: |
-        git add README.md
+        plataforma=$(jq --raw-output '.issue.fields | select(has("plataforma")).plataforma' $GITHUB_EVENT_PATH)
+        git add documentacao/README-${plataforma}.md
         git commit -m "Adicionar README gerado automaticamente a partir da issue #${{ github.event.issue.number }}"
         git push
