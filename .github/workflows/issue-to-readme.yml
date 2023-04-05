@@ -25,6 +25,6 @@ jobs:
 
     - name: Commit e push
       run: |
-        git add documentacao/README.md referente ao issue #${{ github.event.issue.number }}
+        git add -A
         git commit -m "Adicionar README gerado automaticamente a partir da issue #${{ github.event.issue.number }}"
         git push
