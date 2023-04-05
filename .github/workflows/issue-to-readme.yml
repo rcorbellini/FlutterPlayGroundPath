@@ -12,17 +12,15 @@ jobs:
 
     - name: Criar arquivo README
       run: |
-        plataform=$(jq --raw-output '.issue.fields | select(has("plataform")).plataform' $GITHUB_EVENT_PATH)
-        dateForm=$(jq --raw-output '.issue.fields | select(has("date")).date' $GITHUB_EVENT_PATH)
-        dateString=$(dateForm -d "${dateForm}" +"%Y-%m-%d")
+        plataform=$(jq --raw-output '.issue.body | match("Qual a plataforma?[^#]*#(.*)") .captures[0].string' $GITHUB_EVENT_PATH | xargs)
+        dateForm=$(jq --raw-output '.issue.body | match("Data da release[^#]*#(.*)") .captures[0].string' $GITHUB_EVENT_PATH | xargs)
+        dateString=$(date -d "${dateForm}" +"%Y-%m-%d")
         mkdir -p content/pt-br/iniciacao-pagamentos-canais/mobile
         echo "${{ github.event.issue.body }}" | sed 's/"/\\"/g' > content/pt-br/iniciacao-pagamentos-canais/mobile/_${plataform}-${dateString}.md
-
     - name: Configurar Git
       run: |
         git config --global user.email "${{ github.event.issue.user.email }}"
         git config --global user.name "${{ github.event.issue.user.login }}"
-
     - name: Commit e push
       run: |
         git add -A
