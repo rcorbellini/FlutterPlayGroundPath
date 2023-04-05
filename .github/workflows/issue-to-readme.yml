@@ -13,8 +13,8 @@ jobs:
     - name: Criar arquivo README
       run: |
         plataform=$(jq --raw-output '.issue.fields | select(has("plataform")).plataform' $GITHUB_EVENT_PATH)
-        date=$(jq --raw-output '.issue.fields | select(has("date")).date' $GITHUB_EVENT_PATH)
-        dateString=$(date -d "${date}" +"%Y-%m-%d")
+        dateForm=$(jq --raw-output '.issue.fields | select(has("date")).date' $GITHUB_EVENT_PATH)
+        dateString=$(dateForm -d "${dateForm}" +"%Y-%m-%d")
         mkdir -p content/pt-br/iniciacao-pagamentos-canais/mobile
         echo "${{ github.event.issue.body }}" | sed 's/"/\\"/g' > content/pt-br/iniciacao-pagamentos-canais/mobile/_${plataform}-${dateString}.md
 
