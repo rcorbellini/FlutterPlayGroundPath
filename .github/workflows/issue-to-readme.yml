@@ -15,9 +15,11 @@ jobs:
         plataform=$(jq --raw-output '.issue.body | match("Qual a plataforma?[^#]*#(.*)") .captures[0].string' $GITHUB_EVENT_PATH | xargs)
         dateString=$(jq --raw-output '.issue.body | match("Data da release[^#]*#(.*)") .captures[0].string' $GITHUB_EVENT_PATH | xargs)
         echo ${plataform}
+        echo "1"
         echo ${dateString}
+        echo "2"
         mkdir -p content/pt-br/iniciacao-pagamentos-canais/mobile
-        echo "${{ github.event.issue.body }}" | sed 's/"/\\"/g' > content/pt-br/iniciacao-pagamentos-canais/mobile/_${plataform}.md
+        echo "${{ github.event.issue.body }}" | sed 's/"/\\"/g' > content/pt-br/iniciacao-pagamentos-canais/mobile/_teste.md
     - name: Configurar Git
       run: |
         git config --global user.email "${{ github.event.issue.user.email }}"
